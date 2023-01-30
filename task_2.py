@@ -10,9 +10,38 @@ from task_1 import Stack
 # Продолжать до конца текста и если стэк пустой, то текст содержит
 # только правильно вложенные скобки.
 
+
+def is_balance(data_str):
+    figure_dict = {
+        '{': 'фигурная',
+        '}': 'фигурная',
+        '(': 'круглая',
+        ')': 'круглая',
+        '[': 'квадратная',
+        ']': 'квадратная'
+    }
+    for letter in data_str:
+        if letter in ['(', '{', '[']:
+            stack.push(figure_dict[letter])
+        elif letter in [')', '}', ']']:
+            if stack.peek() == figure_dict[letter]:
+                stack.pop()
+            else:
+                print('Несбалансированно')
+                return
+
+    if stack.is_empty():
+        print('Сбалансированно')
+        return
+
+
 if __name__ == '__main__':
-    data_str = '(((([{}]))))'
-    data_list = list(data_str)
-    print(data_list)
-    stack = Stack(data_list)
-    print(stack.size())
+    stack = Stack()
+    data_str = "(((([{}]))))"
+    data_str = "[([])((([[[]]])))]{()}"
+    data_str = "}{}"
+    data_str = "{{[(])]}}"
+    data_str = "[[{())}]"
+    data_str = "{{[()]}}"
+
+    is_balance(data_str)
